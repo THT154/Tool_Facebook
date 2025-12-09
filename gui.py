@@ -32,6 +32,11 @@ class App:
         self.worker = None  # Lazy init
         self.settings = load_settings()
         
+        # Job completion counter
+        self.completed_jobs_count = 0
+        self.total_jobs_attempted = 0
+        self.session_start_time = None
+        
         # Create widgets sau khi hiển thị loading
         self.master.after(10, lambda: self._init_ui(loading_label))
     
@@ -136,6 +141,16 @@ class App:
         self.jobs_count_label = ttk.Label(left_frame, text="Jobs: 0", 
                                           font=('Arial', 10), foreground='#888')
         self.jobs_count_label.pack(side=tk.LEFT, padx=15)
+        
+        # Job completion counter
+        self.completed_jobs_label = ttk.Label(left_frame, text="Hoàn thành: 0", 
+                                             font=('Arial', 10, 'bold'), foreground='#4CAF50')
+        self.completed_jobs_label.pack(side=tk.LEFT, padx=15)
+        
+        # Job rate label
+        self.job_rate_label = ttk.Label(left_frame, text="", 
+                                       font=('Arial', 9), foreground='#2196F3')
+        self.job_rate_label.pack(side=tk.LEFT, padx=10)
         
         # Right side: Control buttons
         btn_frame = ttk.Frame(control_frame)
@@ -732,6 +747,9 @@ class App:
         except Exception:
             pass
         
+        # Reset job completion counter
+        self.reset_completed_jobs_counter()
+        
         self.append_log("=" * 60)
         self.append_log("▶️ BẮT ĐẦU WORKER")
         self.append_log("=" * 60)
@@ -1159,6 +1177,43 @@ class App:
         # tracker.add_coins(coins)
         # self.refresh_coin_stats()
         # self.append_log(f"💰 +{coins} xu | Tổng phiên: {tracker.session_coins} xu")
+    
+    def increment_completed_jobs(self):
+        """Tăng counter job hoàn thành và cập nhật UI"""
+        self.completed_jobs_count += 1
+        success_rate = (self.completed_jobs_count / max(1, self.total_jobs_attempted)) * 100
+        
+        self.completed_jobs_label.config(
+            text=f"Hoàn thành: {self.completed_jobs_count} ({success_rate:.1f}%)"
+        )
+        
+        # Tính tốc độ job/phút
+        self._update_job_rate()
+        
+        self.append_log(f"📊 Job hoàn thành: {self.completed_jobs_count}/{self.total_jobs_attempted} ({success_rate:.1f}%)")
+    
+    def increment_job_attempts(self):
+        """Tăng counter job attempts (được gọi khi bắt đầu mỗi job)"""
+        self.total_jobs_attempted += 1
+        self._update_job_rate()
+    
+    def _update_job_rate(self):
+        """Cập nhật hiển thị tốc độ job/phút"""
+        if self.session_start_time and self.completed_jobs_count > 0:
+            import time
+            elapsed_minutes = (time.time() - self.session_start_time) / 60
+            if elapsed_minutes > 0:
+                jobs_per_minute = self.completed_jobs_count / elapsed_minutes
+                self.job_rate_label.config(text=f"({jobs_per_minute:.1f} job/phút)")
+    
+    def reset_completed_jobs_counter(self):
+        """Reset counter job hoàn thành về 0"""
+        import time
+        self.completed_jobs_count = 0
+        self.total_jobs_attempted = 0
+        self.session_start_time = time.time()
+        self.completed_jobs_label.config(text="Hoàn thành: 0")
+        self.job_rate_label.config(text="")
 
     def _create_accounts_tab(self, parent):
         """Tạo tab quản lý tài khoản (blocked và max job)"""
