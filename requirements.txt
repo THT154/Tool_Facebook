@@ -1,0 +1,24 @@
+# Golike Sequence Bot - Dependencies
+
+# GUI
+# tkinter (built-in với Python)
+
+# Automation
+pyautogui>=0.9.53
+
+# Image Processing
+opencv-python>=4.5.0
+numpy>=1.19.0
+Pillow>=8.0.0
+
+# Window Management (optional)
+pygetwindow>=0.0.9
+
+# ADB (Android Debug Bridge)
+# Cần cài đặt riêng: https://developer.android.com/studio/releases/platform-tools
+# Hoặc sử dụng ADB có sẵn trong LDPlayer
+
+# OCR (Optional - để đọc số xu tự động)
+# Chọn 1 trong 2:
+# easyocr>=1.6.0  # Khuyến nghị cho tiếng Việt
+# pytesseract>=0.3.10  # Cần cài Tesseract-OCR riêng
