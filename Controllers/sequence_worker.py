@@ -18,6 +18,7 @@ from Utils.image_utils import load_gray, locate_template, locate_template_multis
 from Utils.window_utils import click_at, get_ldplayer_window, attempt_scroll_or_drag, set_adb_mode as window_set_adb_mode
 from Utils.adb_utils import get_adb_controller, init_adb_connection
 from Models.coin_tracker import get_coin_tracker, extract_coins_from_text
+from Models.config import get_template_path
 from Utils.ocr_utils import extract_text_from_image, check_ocr_available
 from Controllers.account_switcher import AccountSwitcher
 
@@ -363,7 +364,7 @@ class SequenceWorker:
             
             for key in golike_keys:
                 if key in self.templates:
-                    template_path = self.templates[key]
+                    template_path = get_template_path(self.templates[key])
                     try:
                         tmpl = load_gray(template_path)
                         
@@ -400,7 +401,7 @@ class SequenceWorker:
             
             for key in earn_page_keys:
                 if key in self.templates:
-                    template_path = self.templates[key]
+                    template_path = get_template_path(self.templates[key])
                     try:
                         tmpl = load_gray(template_path)
                         found = locate_template(
@@ -621,7 +622,7 @@ class SequenceWorker:
         """Thử click FB icon nếu có"""
         if self.templates.get('fb_icon'):
             try:
-                tmpl = load_gray(self.templates['fb_icon'])
+                tmpl = load_gray(get_template_path(self.templates['fb_icon']))
                 res = locate_template(
                     tmpl, 
                     confidence=self.params['conf_fb'], 
@@ -708,7 +709,7 @@ class SequenceWorker:
             return False
         
         try:
-            tmpl = load_gray(self.templates['complete_icon'])
+            tmpl = load_gray(get_template_path(self.templates['complete_icon']))
             res = locate_template(
                 tmpl, 
                 confidence=self.params['conf_complete'], 
@@ -746,7 +747,7 @@ class SequenceWorker:
             return False
         
         try:
-            tmpl = load_gray(self.templates['fail_icon'])
+            tmpl = load_gray(get_template_path(self.templates['fail_icon']))
             res = locate_template(
                 tmpl, 
                 confidence=self.params['conf_fail'], 

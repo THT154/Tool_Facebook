@@ -8,7 +8,7 @@ import time
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox, scrolledtext
 
-from Models.config import load_settings, save_settings
+from Models.config import load_settings, save_settings, get_template_path
 
 class App:
     """Giao diện chính của ứng dụng"""
@@ -524,8 +524,9 @@ class App:
         t = self.settings.get('templates', {})
         template_count = 0
         for k, p in t.items():
-            if os.path.exists(p):
-                self.templates[k] = p
+            template_path = get_template_path(p)
+            if os.path.exists(template_path):
+                self.templates[k] = template_path
                 template_count += 1
                 # Update status indicator
                 if hasattr(self, 'template_status_labels') and k in self.template_status_labels:
@@ -952,7 +953,7 @@ class App:
             
             for key in understood_keys:
                 if key in self.templates:
-                    template_path = self.templates[key]
+                    template_path = get_template_path(self.templates[key])
                     try:
                         tmpl = load_gray(template_path)
                         found = locate_template(tmpl, confidence=0.80, timeout=3.0, step=0.1, region=None)
@@ -987,7 +988,7 @@ class App:
             
             for key in golike_keys:
                 if key in self.templates:
-                    template_path = self.templates[key]
+                    template_path = get_template_path(self.templates[key])
                     try:
                         tmpl = load_gray(template_path)
                         

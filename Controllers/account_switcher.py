@@ -36,6 +36,7 @@ import time
 import random
 from Utils.image_utils import load_gray, locate_template, locate_template_multiscale
 from Utils.window_utils import click_at
+from Models.config import get_template_path
 
 class AccountSwitcher:
     """Class xử lý chuyển tài khoản"""
@@ -318,7 +319,7 @@ class AccountSwitcher:
             
             for key in selector_keys:
                 if key in self.templates:
-                    template_path = self.templates[key]
+                    template_path = get_template_path(self.templates[key])
                     try:
                         tmpl = load_gray(template_path)
                         found = locate_template(
@@ -538,7 +539,7 @@ class AccountSwitcher:
                 if key not in self.templates:
                     continue
                 
-                template_path = self.templates[key]
+                template_path = get_template_path(self.templates[key])
                 if not os.path.exists(template_path):
                     continue
                 
@@ -1022,7 +1023,7 @@ class AccountSwitcher:
             
             for key in golike_keys:
                 if key in self.templates:
-                    template_path = self.templates[key]
+                    template_path = get_template_path(self.templates[key])
                     if os.path.exists(template_path):
                         try:
                             tmpl = load_gray(template_path)
@@ -1053,7 +1054,7 @@ class AccountSwitcher:
             
             for key in earn_page_keys:
                 if key in self.templates:
-                    template_path = self.templates[key]
+                    template_path = get_template_path(self.templates[key])
                     if os.path.exists(template_path):
                         try:
                             tmpl = load_gray(template_path)

@@ -70,8 +70,8 @@ def auto_register_templates():
                     template_key = os.path.splitext(filename)[0].lower()
                     template_key = template_key.replace(' ', '_').replace("'", '').replace('"', '')
                 
-                # Đăng ký template
-                settings['templates'][template_key] = os.path.abspath(file_path)
+                # Đăng ký template với đường dẫn tương đối
+                settings['templates'][template_key] = file_path
                 registered_count += 1
                 print(f"✓ Đăng ký: {filename} -> {template_key}")
     
