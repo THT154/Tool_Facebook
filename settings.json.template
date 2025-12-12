@@ -1,0 +1,29 @@
+{
+  "templates": {
+    "account_item": "templates\\account_item.png",
+    "account_selector": "templates\\account_selector.png",
+    "blocked_account_popup": "templates\\blocked_account_popup.png",
+    "category_button": "templates\\category_button.png",
+    "complete_icon": "templates\\complete_icon.png",
+    "confirm_button": "templates\\confirm_button.png",
+    "copy_button": "templates\\copy_button.png",
+    "current_account_red": "templates\\current_account_red.png",
+    "earn_button": "templates\\earn_button.png",
+    "earn_page_header": "templates\\earn_page_header.png",
+    "fail_button": "templates\\fail_button.png",
+    "fail_icon": "templates\\fail_icon.png",
+    "fb_icon": "templates\\fb_icon.png",
+    "golike_icon": "templates\\golike_icon.png",
+    "earn_page_header_alt": "templates\\Header 'Kiếm thưởng.png",
+    "home_button": "templates\\home_button.png",
+    "job_cmt": "templates\\job_cmt.png",
+    "job_follow": "templates\\job_follow.png",
+    "job_heart": "templates\\job_heart.png",
+    "job_icon": "templates\\job_icon.png",
+    "job_like": "templates\\job_like.png",
+    "job_share": "templates\\job_share.png",
+    "ld_golike_icon": "templates\\ld_golike_icon.png",
+    "max_job_popup": "templates\\max_job_popup.png",
+    "ok_button": "templates\\ok_button.png"
+  }
+}
