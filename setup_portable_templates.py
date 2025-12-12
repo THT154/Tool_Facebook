@@ -12,9 +12,10 @@ def main():
     print("=" * 50)
     
     steps = [
-        ("1️⃣ Đăng ký templates với đường dẫn tương đối", "auto_register_templates.py"),
-        ("2️⃣ Chuyển đổi settings cũ (nếu có)", "convert_template_paths.py"),
-        ("3️⃣ Test tất cả templates", "test_template_paths.py")
+        ("1️⃣ Khởi tạo các file dữ liệu cần thiết", "init_data_files.py"),
+        ("2️⃣ Đăng ký templates với đường dẫn tương đối", "auto_register_templates.py"),
+        ("3️⃣ Chuyển đổi settings cũ (nếu có)", "convert_template_paths.py"),
+        ("4️⃣ Test tất cả templates", "test_template_paths.py")
     ]
     
     for step_name, script_name in steps:
@@ -27,7 +28,10 @@ def main():
             
         try:
             # Import và chạy script
-            if script_name == "auto_register_templates.py":
+            if script_name == "init_data_files.py":
+                from init_data_files import init_data_files
+                success = init_data_files()
+            elif script_name == "auto_register_templates.py":
                 from auto_register_templates import auto_register_templates
                 success = auto_register_templates()
             elif script_name == "convert_template_paths.py":
@@ -54,6 +58,7 @@ def main():
     print("   - Copy project sang thiết bị khác")
     print("   - Chạy trên Windows/Mac/Linux")
     print("   - Không lo lỗi đường dẫn template")
+    print("   - Hệ thống quản lý tài khoản blocked/max job hoạt động")
     print("\n📖 Xem thêm: TEMPLATE_MIGRATION_GUIDE.md")
     
     return True
