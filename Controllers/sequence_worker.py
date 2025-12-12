@@ -478,9 +478,9 @@ class SequenceWorker:
     def _process_single_job(self, job):
         """Xử lý một job đơn lẻ"""
         # Tăng counter job attempts
-        if hasattr(self.gui, 'increment_job_attempts'):
+        if hasattr(self.ui, 'increment_job_attempts'):
             try:
-                self.gui.increment_job_attempts()
+                self.ui.increment_job_attempts()
             except Exception as e:
                 self.log(f"⚠️ Lỗi khi cập nhật job attempts counter: {e}")
         
@@ -577,9 +577,9 @@ class SequenceWorker:
                 self.log(f"✅ Job hoàn thành thành công" + (f" (sau {attempt} lần retry)" if attempt > 0 else ""))
                 
                 # Tăng counter job hoàn thành
-                if hasattr(self.gui, 'increment_completed_jobs'):
+                if hasattr(self.ui, 'increment_completed_jobs'):
                     try:
-                        self.gui.increment_completed_jobs()
+                        self.ui.increment_completed_jobs()
                     except Exception as e:
                         self.log(f"⚠️ Lỗi khi cập nhật counter: {e}")
                 
